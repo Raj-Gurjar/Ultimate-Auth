@@ -1,20 +1,27 @@
-import './App.css';
-import DashBoard from './components/DashBoard/DashBoard';
+import './App.scss';
 import Home from './components/Home/Home';
-import Login from './components/Logs/Login';
-import SignUp from './components/Logs/SignUp';
+import Login from './components/Auth/Login';
+import SignUp from './components/Auth/SignUp';
 import {Route,Routes} from "react-router-dom";
 import Navbar from './components/Navbar/Navbar';
+import Admin from './components/Users/Admin';
+import Customer from './components/Users/Customer';
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
        <Routes> 
-         <Route to='home'  element = {<Home/>}/>
-         <Route to='login' element = {<Login/>}/>
-         <Route to='signup' element = {<SignUp/>}/>
-         <Route to='dashboard' element = {<DashBoard/>}/>
+
+         <Route index element = {<Home/>}/>
+         <Route path='/home'  element = {<Home/>}/>
+         <Route path='/login' element = {<Login/>}/>
+         <Route path='/signup' element = {<SignUp/>}/>
+         <Route path='/users/admin' element = {<Admin/>}/>
+         <Route path='/users/customer' element = {<Customer/>}/>
+
+         <Route path='*' element = {<div> <h1>Error 404 ! Not Found</h1></div>}/>
+
        </Routes>
     </div>
   );

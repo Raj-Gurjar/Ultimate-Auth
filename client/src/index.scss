@@ -1,0 +1,25 @@
+@import 'variables';
+html {
+  scroll-behavior: smooth;
+  /* scroll-snap-type: y mandatory; */
+  text-rendering: optimizeLegibility;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+}
+
+
+body {
+  font-size: 13px;
+  color: $black-1000;
+  overflow-x: hidden;
+  font-family: "Work Sans", sans-serif;
+
+  background: $bg-light;
+  z-index: 1;
+  position: relative;
+}
