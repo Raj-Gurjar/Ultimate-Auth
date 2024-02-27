@@ -22,14 +22,10 @@ export default function SignUp() {
       return {
         ...prevFormData, //storing the previous state of form.
 
-        //? [event.target.name]: event.target.value
-        //adding in the previous state
-        //for normal form handling we use above syntax(by this we are storing the whole data at a time , not of a single component).
-
         //! Using Controlled Components (we can tract the data of single component individually)
 
         [name]: type === "checkbox" ? checked : value
-        //if it is a checkbox then send checked in name(name = checked) otherwise send name = value
+        //see the type of (name),if it is a checkbox then send checked in name(name = checked) otherwise send name = value
       }
 
 
@@ -48,6 +44,13 @@ export default function SignUp() {
   }
   return (
     <div className='log-cls'>
+      <h2>Register Here</h2>
+
+      <div className="reg-option">
+        <h3>Register as</h3>
+        <button>Customer</button>
+        <button>Admin</button>  // Add an admin id input which is given by company in case of admin is selected
+      </div>
       <form action="" className='auth-form' onSubmit={handleSubmit}>
         <label>
           First Name*:
@@ -127,20 +130,43 @@ export default function SignUp() {
             onChange={formHandler}
           />
         </label>
-
-        <label>
-          Gender
-          <select
+        <fieldset>
+          <legend>Gender</legend>
+          <input type='radio'
             name="gender"
-            value={formData.gender}
+            value='male'
+            checked = {formData.gender === 'male'}
             onChange={formHandler}
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            id='male'
+          />
+          <label htmlFor="male">Male</label>
 
-          </select>
-        </label>
+          <input type='radio'
+            name="gender"
+            value='female'
+            checked={formData.gender === 'female'}
+            onChange={formHandler}
+            id='female'
+          />
+          <label htmlFor="female">Female</label>
+
+          <input type='radio'
+            name="gender"
+
+            value="Other"
+            checked={formData.gender === 'Other'}
+            onChange={formHandler}
+            id='other'
+          />
+          <label htmlFor="other">Other</label>
+
+
+        </fieldset>
+
+
+
+
+
 
         <label>
           Phone No.
@@ -201,8 +227,9 @@ export default function SignUp() {
 
           <input type="checkbox"
             name="tnc"
-            value={formData.tnc}
+            checked={formData.tnc}
             onChange={formHandler}
+            id='tnc'
             required />
 
           <label htmlFor='tnc'>
