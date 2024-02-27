@@ -47,6 +47,7 @@ export default function Login() {
             onChange={logFormHandler} />
         </label>
 
+        <h3>forgot Password ?</h3>
         <input type='submit' value='submit' />
       </form>
     </div>

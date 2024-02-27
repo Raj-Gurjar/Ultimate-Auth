@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import './Auth.scss'
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Link } from 'react-router-dom';
 
 export default function SignUp() {
+
+  const [role, setRole] = useState(true);
+
   const [formData, setFormData] = useState({
     firstName: "", middleName: "", lastName: "", email: "", userName: "", password: "", confPassword: "",
     dob: "", gender: "", phoneNo: "", country: "", address: "", profilePic: "", securityQue: "", securityAns: "",
     tnc: false, captchaInp: ""
   });
+
+
 
   console.log(formData);
 
@@ -42,16 +48,40 @@ export default function SignUp() {
   function captChange(value) {
     console.log("Captcha value:", value);
   }
+
+
+
   return (
     <div className='log-cls'>
       <h2>Register Here</h2>
 
       <div className="reg-option">
         <h3>Register as</h3>
-        <button>Customer</button>
-        <button>Admin</button>  // Add an admin id input which is given by company in case of admin is selected
+        <button onClick={() => setRole(true)}>Customer</button>
+        <button onClick={() => setRole(false)}>Admin</button>
+
+        {/* Add an admin id input which is given by company in case of admin is selected */}
       </div>
       <form action="" className='auth-form' onSubmit={handleSubmit}>
+        <h4>Register as {role === true ? 'Customer' : 'Admin'} {formData.firstName}</h4>
+
+        {/* 
+        {role === false &&
+          <label>
+            Admin ID:
+
+            <input type="text"
+              placeholder='RA123'
+              name='adminID'
+              value={formData.adminID}
+              onChange={formHandler}
+              required />
+            <span>Know More</span>
+       
+          </label>
+
+        } */}
+
         <label>
           First Name*:
           <input type="text"
@@ -82,6 +112,7 @@ export default function SignUp() {
             onChange={formHandler}
             required />
         </label>
+
 
         <label>
           Email:
@@ -135,7 +166,7 @@ export default function SignUp() {
           <input type='radio'
             name="gender"
             value='male'
-            checked = {formData.gender === 'male'}
+            checked={formData.gender === 'male'}
             onChange={formHandler}
             id='male'
           />
@@ -154,7 +185,7 @@ export default function SignUp() {
             name="gender"
 
             value="Other"
-            checked={formData.gender === 'Other'}
+            checked={formData.gender === 'other'}
             onChange={formHandler}
             id='other'
           />
@@ -238,16 +269,6 @@ export default function SignUp() {
         </fieldset>
 
 
-
-        {/* <label>
-          Captcha
-          <input type="text"
-            name="captchaInp"
-            value={formData.captchaInp}
-            onChange={formHandler}
-            required />
-        </label> */}
-
         <ReCAPTCHA
           sitekey="6LfkvoApAAAAAGkshKOVgSUTUruhPSoqDfMhToSQ"
           onChange={captChange}
@@ -255,9 +276,14 @@ export default function SignUp() {
 
         //TODO make it required
         />
-        <input type="submit" value="Submit" />
+
+        <Link to='/showData'>
+          <input type="submit" value="Submit" />
+        </Link>
+
+
 
       </form>
-    </div>
+    </div >
   )
 }

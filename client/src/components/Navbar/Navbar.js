@@ -30,6 +30,9 @@ export default function Navbar() {
             <li>
               <NavLink to='/signup'>Signup</NavLink>
             </li>
+            <li>
+              <NavLink to='/showData'>ShowData</NavLink>
+            </li>
           </ul>
         </div>
       </div>
