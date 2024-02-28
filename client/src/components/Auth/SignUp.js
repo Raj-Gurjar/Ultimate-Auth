@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './Auth.scss'
+import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Link } from 'react-router-dom';
+import GlobalContext from '../Context/GlobalContext';
+import toast from 'react-hot-toast';
 
 export default function SignUp() {
 
-  const [role, setRole] = useState(true);
+
+  const { userType, setUserType, setIsLoggedIn, signUpApi } = useContext(GlobalContext);
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "", middleName: "", lastName: "", email: "", userName: "", password: "", confPassword: "",
+    isAdmin: userType, firstName: "", middleName: "", lastName: "", email: "", userName: "", password: "", confPassword: "",
     dob: "", gender: "", phoneNo: "", country: "", address: "", profilePic: "", securityQue: "", securityAns: "",
     tnc: false, captchaInp: ""
   });
@@ -38,10 +44,37 @@ export default function SignUp() {
     })
   }
   //! Handle form submission
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    alert('Form submitted Successfully');
     console.log(" Form whole Data: ", formData);
+
+    try {
+      const response = await fetch(`${signUpApi}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+      if (response.ok) {
+        const res_data = await response.json();
+        console.log("res from server", res_data);
+
+
+        toast.success('Account Created Successfully 😊');
+        setIsLoggedIn(true);
+        navigate('/login');
+      }
+      else {
+        const errorMessage = await response.json();
+        toast.error(`Signup failed: ${errorMessage.message}`);
+      }
+    }
+    catch (error) {
+      console.error('Error during SignUp:', error);
+    }
 
   }
 
@@ -54,16 +87,16 @@ export default function SignUp() {
   return (
     <div className='log-cls'>
       <h2>Register Here</h2>
-
+      <h4>Already Have an Account ? <Link to='/login'>Login</Link></h4>
       <div className="reg-option">
         <h3>Register as</h3>
-        <button onClick={() => setRole(true)}>Customer</button>
-        <button onClick={() => setRole(false)}>Admin</button>
+        <button onClick={() => setUserType(false)}>Customer</button>
+        <button onClick={() => setUserType(true)}>Admin</button>
 
         {/* Add an admin id input which is given by company in case of admin is selected */}
       </div>
       <form action="" className='auth-form' onSubmit={handleSubmit}>
-        <h4>Register as {role === true ? 'Customer' : 'Admin'} {formData.firstName}</h4>
+        <h4>Register as {userType === true ? 'Admin' : 'Customer'} {formData.firstName}</h4>
 
         {/* 
         {role === false &&
@@ -183,8 +216,7 @@ export default function SignUp() {
 
           <input type='radio'
             name="gender"
-
-            value="Other"
+            value="other"
             checked={formData.gender === 'other'}
             onChange={formHandler}
             id='other'
@@ -277,9 +309,9 @@ export default function SignUp() {
         //TODO make it required
         />
 
-        <Link to='/showData'>
-          <input type="submit" value="Submit" />
-        </Link>
+        {/* <Link to='/showData'> */}
+        <input type="submit" value="Submit" />
+        {/* </Link> */}
 
 
 
