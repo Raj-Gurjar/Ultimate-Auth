@@ -1,4 +1,9 @@
-@import 'variables';
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+@import "variables";
+
 html {
   scroll-behavior: smooth;
   /* scroll-snap-type: y mandatory; */
@@ -11,7 +16,6 @@ html {
   text-decoration: none;
   outline: none;
 }
-
 
 body {
   font-size: 13px;

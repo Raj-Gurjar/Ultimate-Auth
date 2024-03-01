@@ -83,7 +83,7 @@ exports.logIn = async (req, res) => {
         const checkUser = await userData.findOne({
             userName,
             isAdmin,
-            // password
+            password
         });
 
         if (!checkUser) {

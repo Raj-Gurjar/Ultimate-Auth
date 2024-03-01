@@ -11,11 +11,12 @@ export default function SignUp() {
 
   const { userType, setUserType, setIsLoggedIn, signUpApi } = useContext(GlobalContext);
 
+  console.log("inside signup usertype :", userType);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     isAdmin: userType, firstName: "", middleName: "", lastName: "", email: "", userName: "", password: "", confPassword: "",
-    dob: "", gender: "", phoneNo: "", country: "", address: "", profilePic: "", securityQue: "", securityAns: "",
+    dob: "", gender: "na", phoneNo: "", country: "", address: "", profilePic: "", securityQue: "", securityAns: "",
     tnc: false, captchaInp: ""
   });
 
@@ -61,7 +62,7 @@ export default function SignUp() {
       if (response.ok) {
         const res_data = await response.json();
         console.log("res from server", res_data);
-
+        console.log("inside signup usertype2 :", userType);
 
         toast.success('Account Created Successfully 😊');
         setIsLoggedIn(true);
@@ -89,15 +90,11 @@ export default function SignUp() {
       <h2>Register Here</h2>
       <h4>Already Have an Account ? <Link to='/login'>Login</Link></h4>
       <div className="reg-option">
-        <h3>Register as</h3>
-        <button onClick={() => setUserType(false)}>Customer</button>
-        <button onClick={() => setUserType(true)}>Admin</button>
+        <h3>Register as {userType === true ? 'Admin' : 'Customer'}</h3>
 
         {/* Add an admin id input which is given by company in case of admin is selected */}
       </div>
       <form action="" className='auth-form' onSubmit={handleSubmit}>
-        <h4>Register as {userType === true ? 'Admin' : 'Customer'} {formData.firstName}</h4>
-
         {/* 
         {role === false &&
           <label>
@@ -132,7 +129,6 @@ export default function SignUp() {
             name='middleName'
             value={formData.middleName}
             onChange={formHandler}
-            required
           />
         </label>
 
@@ -204,7 +200,6 @@ export default function SignUp() {
             id='male'
           />
           <label htmlFor="male">Male</label>
-
           <input type='radio'
             name="gender"
             value='female'
@@ -222,6 +217,15 @@ export default function SignUp() {
             id='other'
           />
           <label htmlFor="other">Other</label>
+
+          <input type='radio'
+            name="gender"
+            value="na"
+            checked={formData.gender === 'na'}
+            onChange={formHandler}
+            id='na'
+          />
+          <label htmlFor="na">NA</label>
 
 
         </fieldset>

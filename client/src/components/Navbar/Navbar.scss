@@ -46,3 +46,18 @@
     }
 }
 
+.dropdown
+{
+    background-color: green;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top:3rem;
+    right: 1rem;
+
+    ul
+    {
+        display: flex;
+        flex-direction: column;
+    }
+}

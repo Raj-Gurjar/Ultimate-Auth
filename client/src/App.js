@@ -4,9 +4,11 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import {Route,Routes} from "react-router-dom";
 import Navbar from './components/Navbar/Navbar';
-import Admin from './components/Users/Admin';
-import Customer from './components/Users/Customer';
+import AdminDashBoard from './components/Users/Admin/AdminDashBoard';
+import CustomerDashBoard from './components/Users/Customer/CustomerDashBoard';
 import ShowData from './components/Auth/ShowData';
+import UserProfile from './components/Users/UserProfile';
+
 
 function App() {
   return (
@@ -18,9 +20,9 @@ function App() {
          <Route path='/home'  element = {<Home/>}/>
          <Route path='/login' element = {<Login/>}/>
          <Route path='/signup' element = {<SignUp/>}/>
-         <Route path='/users/admin' element = {<Admin/>}/>
-         <Route path='/users/customer' element = {<Customer/>}/>
-         <Route path='/showData' element = {<ShowData/>}/>
+         <Route path='/users/admin/dashboard' element = {<AdminDashBoard/>}/>
+         <Route path='/users/customer/dashboard' element = {<CustomerDashBoard/>}/>
+         <Route path='/users/profile' element = {<UserProfile/>}/>
 
          <Route path='*' element = {<div> <h1>Error 404 ! Not Found</h1></div>}/>
 
