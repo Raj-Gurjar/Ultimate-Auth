@@ -10,10 +10,11 @@ import toast from 'react-hot-toast';
 
 export default function Navbar() {
 
-  const { isLoggedIn, setIsLoggedIn, userType, setUserType } = useContext(GlobalContext);
+  const { isLoggedIn, setIsLoggedIn, userType, setUserType,PORT_URL } = useContext(GlobalContext);
 
   const [dorpDown, setDropDown] = useState(false);
   console.log('dropDown:', dorpDown);
+  console.log('porturl:', PORT_URL);
 
   return (
     <div className='navbar-container'>

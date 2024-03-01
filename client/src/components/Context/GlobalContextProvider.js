@@ -1,15 +1,17 @@
-import {  useState } from "react";
+import { useState } from "react";
 import GlobalContext from "./GlobalContext";
 import React from "react";
+// import dotenv from '../../../dotenv';
 
-const GlobalContextProvider = ({children}) =>
-{
+// dotenv.config();
+
+
+const GlobalContextProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userType, setUserType] = useState(false);
 
-    const PORT = 4001;
-    const PORT_URL = `http://localhost:${PORT}/api`
-
+    const PORT_URL = process.env.REACT_APP_URL;
+    
     const logInApi = `${PORT_URL}/user/login`
     const signUpApi = `${PORT_URL}/user/signup`
 
@@ -17,7 +19,7 @@ const GlobalContextProvider = ({children}) =>
     return (
         <GlobalContext.Provider value={{
             isLoggedIn, setIsLoggedIn, userType, setUserType,
-            logInApi, signUpApi
+            logInApi, signUpApi,PORT_URL
         }}>
             {children}
         </GlobalContext.Provider>

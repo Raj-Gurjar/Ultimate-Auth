@@ -6,7 +6,7 @@ import {Route,Routes} from "react-router-dom";
 import Navbar from './components/Navbar/Navbar';
 import AdminDashBoard from './components/Users/Admin/AdminDashBoard';
 import CustomerDashBoard from './components/Users/Customer/CustomerDashBoard';
-import ShowData from './components/Auth/ShowData';
+
 import UserProfile from './components/Users/UserProfile';
 
 
