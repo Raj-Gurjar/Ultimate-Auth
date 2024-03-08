@@ -12,20 +12,31 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use("*", cors());
 
-const userRoutes = require('./routes/user');
+//file upload
+const fileUpload = require('express-fileupload');
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}));
 
-app.use("/api/user",userRoutes);
-
-app.listen(PORT, () =>
-{
- console.log('Server is Listening on Port: ' + PORT);
-});
 
 const dbConnect = require("./config/database");
 dbConnect();
 
-app.get('/', (req,res) =>
-{
+const cloudinary = require('./config/cloudinary');
+cloudinary.cloudinaryConnect();
+
+
+app.get('/', (req, res) => {
     res.send("hello dsd");
 })
 
+const userRoutes = require('./routes/user');
+const fileRoutes = require('./routes/files');
+
+app.use("/api/user", userRoutes);
+app.use("/api/files", fileRoutes);
+
+app.listen(PORT, () => {
+    console.log('Server is Listening on Port: ' + PORT);
+});

@@ -49,9 +49,9 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
     },
-    // profilePic: {
-    //     type: String,
-    // },
+    profilePic: {
+        type: String,
+    },
     securityQue: {
         type: String,
     },

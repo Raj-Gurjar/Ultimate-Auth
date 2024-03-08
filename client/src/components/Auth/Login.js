@@ -50,6 +50,7 @@ export default function Login() {
       if (response.ok) {
         const res_data = await response.json();
         console.log('LogIn response:', res_data);
+
         console.log("inside signup usertype2 :", userType);
         setIsLoggedIn(true);
         toast.success('LogIn data Submitted');
